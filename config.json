@@ -1,0 +1,15 @@
+
+{
+	"databaseAuth": {
+		"user": "xxxxx",
+		"database": "nodetodo",
+		"password": "",
+		"host": "localhost",
+		"port": 27017
+	},
+	"sessionAuth": {
+		"host": "localhost",
+		"port": 11211
+	},
+	"cookieHash": "proposalcookiehash"
+}

@@ -1,0 +1,22 @@
+doctype 5
+html
+	head
+		title= page.title
+		script(src='http://code.jquery.com/jquery-1.9.1.min.js')
+		script(src='/js/plugins/jquery.leanModal.min.js')
+		if user
+			script(src='/socket.io/socket.io.js')
+			script(src='/js/modalOperation.js')
+			script(src='/js/socketOperation.js')
+		//script(src='/js/bootstrap.min.js')
+
+		//link(rel='stylesheet', href='/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/css/style.css')
+
+	body
+		if user
+			include common/sidebar
+			hr
+			include common/rooms
+			hr
+		block content

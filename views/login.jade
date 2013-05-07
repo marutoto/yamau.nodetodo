@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	h3= page.title
+
+	form(method='POST', action='/login')
+		p
+			label email:
+			input(type='text', name='email', value=email)
+		p
+			label password:
+			input(type='password', name='password')
+		p
+			button.btn(type='submit', name='login') Login
+
+	if loginFailed
+		p login failed.

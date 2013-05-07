@@ -1,0 +1,29 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#lean_overlay {
+	position: fixed;
+	z-index:100;
+	top: 0px;
+	left: 0px;
+	height:100%;
+	width:100%;
+	background: #000;
+	display: none;
+}
+.modal {
+	padding: 20px 40px;
+	background: #ffffff;
+	display: none;
+}
+.modal .completion {
+	/*display: none;*/
+	position: absolute;
+	top: -300px;
+}

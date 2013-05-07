@@ -1,0 +1,67 @@
+extends layout
+
+block content
+	.menu
+		p
+			a(name='user-form', rel='leanModal', href='.user-form') create User
+		p
+			a(name='room-form', rel='leanModal', href='.room-form') create Room
+
+	.modal.user-form
+		form(method='POST')
+			p username
+				br
+				input(type='text', name='username')
+			p email
+				br
+				input(type='text', name='email')
+			p password
+				br
+				input(type='password', name='password')
+			p authority
+				br
+				select(name='authority')
+					//each auth in authority
+					//	option(value=auth.id)
+					option(value='1') administrator
+					option(value='2') user
+			p
+				input(type='button', class='submit', value='create')
+		.completion
+			h4 complete!
+			p.username username
+				br
+				span
+			p.email email
+				br
+				span
+			p.authority authority
+				br
+				span
+			p
+				input(type='button', class='re-create', value='create next user')
+				input(type='button', class='close', value='close')
+
+	.modal.room-form
+		form(method='POST')
+			p roomname
+				br
+				input(type='text', name='roomname')
+			p entry_members
+				br
+				each user in users
+					input(type='checkbox', name='entry_members', value=user._id)
+					label #{user.username}
+			p
+				input(type='button', class='submit', value='create')
+		.completion
+			h4 complete!
+			p.roomname Room Name
+				br
+				span
+			p.entry_members Entry Members
+				br
+				span
+			p
+				input(type='button', class='re-create', value='create next user')
+				input(type='button', class='close', value='close')
