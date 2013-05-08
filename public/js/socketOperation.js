@@ -41,7 +41,7 @@ $(function () {
 			return;
 		}
 
-		switchUserDisplay('complete', data.user_info);
+		switchRoomDisplay('complete', data.room_info);
 
 	});
 

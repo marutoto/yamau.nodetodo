@@ -121,7 +121,6 @@ Rooms.prototype.findEntryUsername = function (result, callback) {
 				callback(err);
 				return;
 			}
-			console.log('result', result);
 			callback(err, result);
 		});
 	});

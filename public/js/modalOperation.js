@@ -95,24 +95,17 @@ function switchRoomDisplay(mode, room_info) {
 	var $completion = $('.modal.room-form .completion');
 
 	if(mode === 'complete') {
-		// 作成したUser情報を出力
+		// 作成したRoom情報を出力
 		$completion.find('.roomname span').text(room_info.roomname);
-		$completion.find('.email span').text(room_info.email);
-		if(user_info.authority == 1) {
-			var authority = 'Administrator';
-		} else {
-			var authority = 'User';
-		}
-		$completion.find('.authority span').text(authority);
+		$completion.find('.entry_members span').text(room_info.entry_members);
 
 		$form.animate({'opacity': 0}, 1000);
 		$completion.animate({'top': 20}, 1000);
 
 	} else if(mode === 're-create') {
 		// フォームに入力済みのデータを消去
-		$form.find('[name="username"]').val('');
-		$form.find('[name="email"]').val('');
-		$form.find('[name="password"]').val('');
+		$form.find('[name="roomname"]').val('');
+		$form.find('[name="entry_members"]').removeAttr('checked');
 
 		$completion.animate({'top': -500}, 1000);
 		$form.animate({'opacity': 1}, 1000);
