@@ -1,7 +1,7 @@
 
 var database = require('./database');
 var db = database.createDatabaseClient();
-var BSON = require('mongodb').pure().BSON;
+var ObjectID = require('mongodb').ObjectID;
 var rooms = exports;
 
 // ルームクラス
@@ -100,40 +100,20 @@ Rooms.prototype.createRoom = function (room_info, callback) {
  */
 Rooms.prototype.findEntryUsername = function (result, callback) {
 
-	// roomsコレクションオブジェクトを取得する
-	db.getCollection('rooms', function (err, collection) {
+	// usersコレクションオブジェクトを取得する
+	db.getCollection('users', function (err, collection) {
 		if(err) {
 			callback(err);
 			return;
 		}
 
-		var ObjectID = require('mongodb').ObjectID;
-		//var objectId = new ObjectID();
-
-		console.log(result.entry_members[0]);
-		console.log(ObjectID(result.entry_members[0]));
-
-		console.log(typeof result.entry_members[0]);
-		console.log(typeof ObjectID(result.entry_members[0]));
-		//console.log(new MongoId(result.entry_members[0]));
-		//console.log(BSON.ObjectId.from_string);
-
-		//console.log('pass', ObjectID.createFromHexString(result.entry_members[0]));
-		//return;
-
 		// user名を取得する
 		var _ids = [];
-		/*for(var i=0; i<result.entry_members.length; i++) {
-			console.log(result.entry_members[i]);
-			//console.log(result.entry_members[i].createFromHexString());
-			//console.log(result.entry_members[i].toHexString());
-			_ids.push(result.entry_members[i]);
-		}*/
-		_ids.push(ObjectID(result.entry_members[0]));
-		//var query = {_id: {$in: _ids}};
-		var query = {_id: ObjectID(result.entry_members[0])};
-		console.log('query', query);
+		for(var i=0; i<result.entry_members.length; i++) {
+			_ids.push(ObjectID.createFromHexString(result.entry_members[i]));
+		}
 
+		var query = {_id: {$in: _ids}};
 		var cursor = collection.find(query);
 		cursor.toArray(function (err, result) {
 			db.closeDb();
@@ -142,11 +122,8 @@ Rooms.prototype.findEntryUsername = function (result, callback) {
 				return;
 			}
 			console.log('result', result);
-			return;
 			callback(err, result);
 		});
-
-
 	});
 
 };

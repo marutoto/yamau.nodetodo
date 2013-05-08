@@ -1,8 +1,8 @@
 
 var users = require('./models/users').getUsers();
-var counter = require('./models/counter');
+//var counter = require('./models/counter');
 
-var test_code = 3;
+var test_code = 2;
 
 switch(test_code) {
 
