@@ -5,8 +5,70 @@ var db = database.createDatabaseClient();
 var objectID = new require('mongodb').ObjectID;
 var users = exports;
 
-// ユーザクラス
+// Usersクラス
 var Users = function () {};
+
+/**
+ * Userを全件取得する
+ * @param callback
+ */
+Users.prototype.findUser = function (callback) {
+
+	// usersコレクションオブジェクトを取得する
+	db.getCollection('users', function (err, collection) {
+		if(err) {
+			callback(err);
+			return;
+		}
+
+		var cursor = collection.find({});
+		cursor.toArray(function (err, result) {
+			db.closeDb();
+			if(err) {
+				callback(err);
+				return;
+			}
+			callback(err, result);
+		});
+	});
+
+};
+
+
+/**
+ * ユーザを作成する
+ * @param user_info
+ * @param callback
+ */
+Users.prototype.createUser = function (user_info, callback) {
+
+	// usersコレクションオブジェクトを取得する
+	db.getCollection('users', function (err, collection) {
+		if(err) {
+			callback(err);
+			return;
+		}
+
+		// 入力されたパスワードを暗号化
+		var hashed_password = _hashPassword(user_info.password);
+
+		var new_user = {
+			username: user_info.username,
+			email: user_info.email,
+			password: hashed_password,
+			authority: user_info.authority
+		};
+		collection.insert(new_user, function (err, result) {
+			db.closeDb();
+			if(err) {
+				callback(err);
+				return;
+			}
+			callback(err, result[0]);
+		});
+	});
+};
+
 
 /**
  * ユーザ認証を行う
@@ -67,66 +129,6 @@ Users.prototype.authenticate = function (email, password, callback) {
 		});
 		*/
 	});
-};
-
-/**
- * ユーザを作成する
- * @param user_info
- * @param callback
- */
-Users.prototype.createUser = function (user_info, callback) {
-
-	// usersコレクションオブジェクトを取得する
-	db.getCollection('users', function (err, collection) {
-		if(err) {
-			callback(err);
-			return;
-		}
-
-		// 入力されたパスワードを暗号化
-		var hashed_password = _hashPassword(user_info.password);
-
-		var new_user = {
-			username: user_info.username,
-			email: user_info.email,
-			password: hashed_password,
-			authority: user_info.authority
-		};
-		collection.insert(new_user, function (err, result) {
-			db.closeDb();
-			if(err) {
-				callback(err);
-				return;
-			}
-			callback(err, result[0]);
-		});
-	});
-};
-
-/**
- * Userを全件取得する
- * @param callback
- */
-Users.prototype.findUser = function (callback) {
-
-	// usersコレクションオブジェクトを取得する
-	db.getCollection('users', function (err, collection) {
-		if(err) {
-			callback(err);
-			return;
-		}
-
-		var cursor = collection.find({});
-		cursor.toArray(function (err, result) {
-			db.closeDb();
-			if(err) {
-				callback(err);
-				return;
-			}
-			callback(err, result);
-		});
-	});
-
 };
 
 /**

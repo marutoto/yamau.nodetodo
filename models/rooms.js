@@ -4,11 +4,15 @@ var db = database.createDatabaseClient();
 var ObjectID = require('mongodb').ObjectID;
 var rooms = exports;
 
-// ルームクラス
+// Roomsクラス
 var Rooms = function () {};
 
-
-Rooms.prototype.findRooms = function (name, password, callback) {
+/**
+ * roomを取得する
+ * @param query
+ * @param callback
+ */
+Rooms.prototype.findRooms = function (query, callback) {
 
 	// usersコレクションオブジェクトを取得する
 	db.getCollection('users', function (err, collection) {
@@ -43,25 +47,6 @@ Rooms.prototype.findRooms = function (name, password, callback) {
 
 		});
 
-		/*
-		 // テスト
-		 cursor.toArray(function (err, doc) {
-		 console.log('get : ', doc);
-		 });
-		 cursor.count(function (err, count) {
-		 console.log('count : ', count);
-		 db.closeDb();
-		 });
-
-		 // DB接続動作テスト(usersコレクションに1件追加して、表示する)
-		 collection.insert({id: 999, name: 'yamaua'}, function (err, result) {
-		 console.log(result, ' : result');
-		 var cursor = collection.find({});
-		 cursor.toArray(function (err, docs) {
-		 console.log(docs);
-		 });
-		 });
-		 */
 	});
 };
 
