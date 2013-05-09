@@ -47,6 +47,29 @@ Entries.prototype.findOneEntry = function (_id, callback) {
 
 };
 
+Entries.prototype.createEntry = function (room_id, user_id, callback) {
+
+	db.getCollection('entries', function (err, collection) {
+		if(err) {
+			callback(err);
+			return;
+		}
+
+		var new_entry = {
+			room_id: room_id,
+			user_id: user_id
+		};
+		collection.insert(new_entry, function (err, result) {
+			db.closeDb();
+			if(err) {
+				callback(err);
+				return;
+			}
+			callback(err, result[0]);
+		});
+	});
+
+};
 
 /**
  * インスタンスを生成する

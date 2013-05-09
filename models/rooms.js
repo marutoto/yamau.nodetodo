@@ -64,8 +64,8 @@ Rooms.prototype.createRoom = function (room_info, callback) {
 			return;
 		}
 		var new_room = {
-			name: room_info.roomname,
-			entry_members: room_info.entry_members
+			name: room_info.roomname
+			//entry_members: room_info.entry_members
 		};
 		collection.insert(new_room, function (err, result) {
 			db.closeDb();
@@ -73,6 +73,7 @@ Rooms.prototype.createRoom = function (room_info, callback) {
 				callback(err);
 				return;
 			}
+
 			callback(err, result[0]);
 		});
 	});

@@ -47,12 +47,12 @@ function getRoomFormValue($form) {
 	$temp = $form.find('[name="roomname"]');
 	values[$temp.attr('name')] = $temp.val();
 
-	$temp = $form.find('[name="entry_members"]:checked');
+	$temp = $form.find('[name="entry_users"]:checked');
 	var checked = [];
 	$temp.each(function () {
 		checked.push($(this).val());
 	});
-	values['entry_members'] = checked;
+	values['entry_users'] = checked;
 	return values;
 
 }

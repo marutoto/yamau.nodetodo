@@ -47,10 +47,10 @@ block content
 			p roomname
 				br
 				input(type='text', name='roomname')
-			p entry_members
+			p entry_users
 				br
 				each user in users
-					input(type='checkbox', name='entry_members', value=user._id)
+					input(type='checkbox', name='entry_users', value=user._id)
 					label #{user.username}
 			p
 				input(type='button', class='submit', value='create')
