@@ -1,11 +1,11 @@
 
 var crypto = require('crypto');
 var database = require('./database');
-var db = database.createDatabaseClient();
+var db = database.getDatabaseClient();
 var objectID = new require('mongodb').ObjectID;
 var users = exports;
 
-// Usersクラス
+// Usersコレクションクラス
 var Users = function () {};
 
 /**
