@@ -1,6 +1,6 @@
 
-// Usersクラスのインスタンスを取得する
-var users = require('../models/users').getUsers();
+// Usersクラスを読み込む
+var Users = require('../models/users');
 
 /**
  * ログイン画面表示
@@ -31,7 +31,7 @@ exports.login.post = function (req, res) {
 	var password = req.body.password || '';
 
 	// 入力データを検証後、コールバックでログインする
-	users.authenticate(email, password, function (err, user_info) {
+	Users.authenticate(email, password, function (err, user_info) {
 
 		// ログインに失敗
 		if(err) {

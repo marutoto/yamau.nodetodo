@@ -1,7 +1,7 @@
 
-var users = require('../models/users').getUsers();
-var rooms = require('../models/rooms').getRooms();
-var entries = require('../models/entries').getEntries();
+var Users = require('../models/users');
+var Rooms = require('../models/rooms');
+var Entries = require('../models/entries');
 
 // socket.ioの接続イベントをapp.jsから切り分けた
 exports.onConnection = function (socket) {
@@ -11,7 +11,7 @@ exports.onConnection = function (socket) {
 	// userを作成するイベント
 	socket.on('create-user', function (data) {
 
-		users.createUser(data, function (err, result) {
+		Users.createUser(data, function (err, result) {
 			var data = {
 				err: false,
 				user_info: {
@@ -27,10 +27,10 @@ exports.onConnection = function (socket) {
 	// roomを作成するイベント
 	socket.on('create-room', function (data) {
 
-		rooms.createRoom(data, function (err, result) {
+		Rooms.createRoom(data, function (err, result) {
 
 
-			entries.createEntry('entries', function (err, collection) {
+			Entries.createEntry('entries', function (err, collection) {
 				if(err) {
 					callback(err);
 					return;
@@ -44,7 +44,7 @@ exports.onConnection = function (socket) {
 
 			});
 
-			rooms.findEntryUsername(result, function (err, entry_members) {
+			Rooms.findEntryUsername(result, function (err, entry_members) {
 
 				var entry_members_name = '';
 				for(var i=0; i<entry_members.length; i++) {

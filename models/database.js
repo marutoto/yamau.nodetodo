@@ -1,5 +1,4 @@
 
-
 var mongodb = require('mongodb');
 var config = require('../config');
 var database = exports;
@@ -12,11 +11,11 @@ var Database = function () {};
 
 /**
  * データベースへ接続する為のオブジェクトを取得する
- * @param databaseName
+ * @param database_name
  * @param callback 実行するクエリを定義した関数。「err」「データベースへの接続用オブジェクト」を引数に取る
  * @private
  */
-Database.prototype._openDb = function (databaseName, callback) {
+Database.prototype._openDb = function (database_name, callback) {
 
 	var self = this;
 
@@ -28,7 +27,7 @@ Database.prototype._openDb = function (databaseName, callback) {
 	var host = config.databaseAuth.host;
 	var port = config.databaseAuth.port;
 	var server = new mongodb.Server(host, port);
-	var db_connector = new mongodb.Db(databaseName, server, {safe: true});
+	var db_connector = new mongodb.Db(database_name, server, {safe: true});
 
 	db_connector.open(function (err, db) {
 		if(err) {
@@ -44,19 +43,19 @@ Database.prototype._openDb = function (databaseName, callback) {
 
 /**
  * コレクションへ接続する為のオブジェクトを取得する
- * @param collectionName
+ * @param collection_name
  * @param callback 実行するクエリを定義した関数。「err」「コレクションへの接続用オブジェクト」を引数に取る
  */
-Database.prototype.getCollection = function (collectionName, callback) {
+Database.prototype.getCollection = function (collection_name, callback) {
 
 	var databaseName = config.databaseAuth.database;
 	this._openDb(databaseName, function (err, db) {
-	//                                          ↑コレコレ
+		//                                          ↑コレコレ
 		if(err) {
 			callback(err);
 			return;
 		}
-		db.createCollection(collectionName, callback);
+		db.createCollection(collection_name, callback);
 
 	});
 
@@ -74,10 +73,11 @@ Database.prototype.closeDb = function () {
 
 };
 
+
 /**
  * インスタンスを生成する
  */
-database.createDatabaseClient = function () {
+database.getDatabaseClient = function () {
 	return new Database();
 };
 

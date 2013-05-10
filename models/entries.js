@@ -1,6 +1,6 @@
 
 var database = require('./database');
-var db = database.createDatabaseClient();
+var db = database.getDatabaseClient();
 var ObjectID = require('mongodb').ObjectID;
 var rooms = exports;
 

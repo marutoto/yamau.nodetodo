@@ -1,5 +1,6 @@
 
-var users = require('../models/users').getUsers();
+// Usersクラスを読み込む
+var Users = require('../models/users');
 
 /**
  * メインページ
@@ -18,7 +19,8 @@ exports.top = function (req, res) {
 	//req.session.save();
 
 	// Userを全件取得する
-	users.findUser(function (err, result) {
+	var query = '{}';
+	Users.findUser(query, function (err, result) {
 
 		var users = [];
 		for(var i=0; i<result.length; i++) {
